@@ -27,8 +27,8 @@ public class HandTracker : MonoBehaviour {
         else if (Controller == ControllerID.Right)
             c = OVRInput.Controller.RTouch;
         else return;
-        transform.position = OVRInput.GetLocalControllerPosition(c);
-        transform.rotation = OVRInput.GetLocalControllerRotation(c);
+		transform.localPosition = OVRInput.GetLocalControllerPosition(c);
+		transform.localRotation = OVRInput.GetLocalControllerRotation(c);
    
     }
 
