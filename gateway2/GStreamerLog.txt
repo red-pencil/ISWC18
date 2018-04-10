@@ -1,0 +1,20 @@
+mray_gstreamer_initialize
+Initializing GStreamer Engine
+Initializing GStreamer Engine - Done
+Initializing GStreamer
+GStreamerCore - Registering Elements!
+GStreamerCore - GStreamer inited
+Initializing GStreamer - Done
+mray_gstreamer_initialize
+Error: Source ID 4294967295 was not found when attempting to remove it
+mray_gstreamer_initialize
+mray_gstreamer_initialize
+Error: Source ID 3801155 was not found when attempting to remove it
+mray_gstreamer_initialize
+mray_gstreamer_initialize
+Error: Source ID 3211364 was not found when attempting to remove it
+mray_gstreamer_initialize
+mray_gstreamer_initialize
+Error: Source ID 3801155 was not found when attempting to remove it
+mray_gstreamer_initialize
+mray_gstreamer_initialize
