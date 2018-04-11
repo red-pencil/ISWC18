@@ -18,6 +18,10 @@ public class virtual_hand : MonoBehaviour {
 	new Vector3 handPosNew;
 	new Vector3 handPosToHeadNew;
 
+	new public float offsetX;
+	new public float offsetY;
+	new public float offsetZ;
+
 	public ControllerID Controller;
 
 	// Use this for initialization
@@ -41,7 +45,14 @@ public class virtual_hand : MonoBehaviour {
 		handPosToHeadNew = Quaternion.Inverse(vOrigin.transform.rotation) * handPosToHead;//twice
 		handPosNew = handPosToHeadNew + vOrigin.transform.position;
 
+
+		handPosNew.x += offsetX;
+		handPosNew.y += offsetY;
+		handPosNew.z += offsetZ;
+
+
 		transform.localPosition = handPosNew;
+
 		transform.localRotation = OVRInput.GetLocalControllerRotation(c);
 		
 	}
