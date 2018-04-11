@@ -42,6 +42,7 @@ public class Virtual_record : MonoBehaviour {
 	new float time;
 	public string name = "your name";
 
+	public float rtdistance=0;
 
 	// Use this for initialization
 	void Start () {
@@ -102,6 +103,10 @@ public class Virtual_record : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (clone != null) {
+			rtdistance = Vector3.Distance (clone.transform.position, vOrigin.transform.position);
+		}
 
 		if (GameObject.Find ("Sphere(Clone)") != null)
 			_target = true;
@@ -303,7 +308,7 @@ public class Virtual_record : MonoBehaviour {
 			}
 
 			clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity, transform);
-
+			clone.transform.localPosition = new Vector3 (targetx, targety, targetz);
 			//clone.transform.parent = transform;
 
 			targetID++;

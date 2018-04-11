@@ -33,8 +33,5 @@ public class virtual_exp_3 : MonoBehaviour {
 		if (_compensateRI)
 			transform.rotation = Quaternion.Inverse (vOrigin.transform.rotation);
 
-
-
-
 	}
 }
