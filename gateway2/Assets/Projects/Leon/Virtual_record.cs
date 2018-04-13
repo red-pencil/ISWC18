@@ -14,7 +14,7 @@ public class Virtual_record : MonoBehaviour {
 
 	new public GameObject vTarget;
 	new public GameObject vOrigin;
-	public bool _showAll = false;
+
 
 	new GameObject clone;
 	float targetx = 0.0f;
@@ -49,8 +49,8 @@ public class Virtual_record : MonoBehaviour {
 
 		//lon = new float[] { 90, 120, 150, 180, 90, 90, 90, 180, 180, 135};
 		//lat = new float[] {  0,   0,   0,   0, 30, 60, 90,  30, 60 , 45};
-		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180, 90};
-		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60 ,-60};
+		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180,  90};
+		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60, -60};
 		lonpi = new float[(int) lon.LongLength];
 		latpi = new float[(int) lat.LongLength];
 
@@ -61,24 +61,7 @@ public class Virtual_record : MonoBehaviour {
 			latpi [i] = lat [i] / 360 * 2 * Mathf.PI;
 		}
 
-		if (_showAll) {
-			
-			for (int i = 0; i < Mathf.Min (lon.Length, lat.Length); i++) {
-		
-				targetx = Mathf.Sin (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
-				targety = Mathf.Sin (latpi [i]) * vtDistance;
-				targetz = Mathf.Cos (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
 
-				clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity);
-
-				if (targetx > 0) {
-
-					clone = Instantiate (vTarget, new Vector3 (-targetx, targety, targetz), Quaternion.identity);
-
-				}
-			
-			}
-		}
 
 		// record
 
@@ -88,10 +71,6 @@ public class Virtual_record : MonoBehaviour {
 		writer.AddKey ("Target ID");
 		writer.AddKey ("Target_lon");
 		writer.AddKey ("Target_lat");
-		writer.AddKey ("Target_y");
-		writer.AddKey ("Target_z");
-		writer.AddKey ("Target_y");
-		writer.AddKey ("Target_z");
 		writer.AddKey ("Target_x");
 		writer.AddKey ("Target_y");
 		writer.AddKey ("Target_z");
@@ -118,7 +97,7 @@ public class Virtual_record : MonoBehaviour {
 			RandomTarget ();
 
 
-		/// generate all targets
+		/// generate all targets once
 		/// 
 		if (Input.GetKeyDown (KeyCode.Z)) {
 
@@ -135,6 +114,12 @@ public class Virtual_record : MonoBehaviour {
 					targetz = Mathf.Cos (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
 
 					clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity);
+
+					if (targetx > 0) {
+
+						clone = Instantiate (vTarget, new Vector3 (-targetx, targety, targetz), Quaternion.identity);
+
+					}
 
 				}
 					
@@ -170,10 +155,9 @@ public class Virtual_record : MonoBehaviour {
 
 		/// record data
 		/// 
-		if (Input.GetKeyDown (KeyCode.Q)) {
-
-
+		if (Input.GetKeyDown (KeyCode.Tab)) {
 			_start = !_start;
+
 			if (_start)
 			{
 				Debug.Log("Started Recording");
@@ -187,15 +171,14 @@ public class Virtual_record : MonoBehaviour {
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.Tab)) {
+		if (Input.GetKeyDown (KeyCode.Q)) {
 
 			_pause = !_pause;
 			Debug.Log("Pause Recording");
 		}
 
-			if (_start && !_pause)
-				Record ();
-
+		if (_start && !_pause)
+			Record ();
 
 
 		}
@@ -274,6 +257,7 @@ public class Virtual_record : MonoBehaviour {
 
 		void GenerateTarget ()
 	{
+		targetID++;
 
 			myColor = targetObject.material;
 			myColor.color =	Color.green;
@@ -302,16 +286,16 @@ public class Virtual_record : MonoBehaviour {
 			targety = Mathf.Sin (latpi [i]) * vtDistance;
 			targetz = Mathf.Cos (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
 
-			if (_mirror && targetx > 0 && Random.Range(-0.1f,1.0f) < 0.5)
+			if (_mirror && targetx > 0 && Random.Range(-0.1f,1.1f) < 0.5)
 			{
-				//targetx = -targetx;
+				targetx = -targetx;
 			}
 
 			clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity, transform);
 			clone.transform.localPosition = new Vector3 (targetx, targety, targetz);
 			//clone.transform.parent = transform;
 
-			targetID++;
+			
 
 			Debug.Log (Time.time);
 
@@ -320,17 +304,20 @@ public class Virtual_record : MonoBehaviour {
 
 	void RecordKey (){
 
+		int targetIDreal = vtOrder [targetID] - 1;
+
+		writer.AddData ("KeyTime", time.ToString ());
 		writer.AddData ("KeyPress", "1");
 		writer.AddData ("Time-Time", Time.time.ToString ());
-		writer.AddData ("Target ID", (targetID - 1).ToString ());
+		writer.AddData ("Target ID", targetIDreal.ToString ());
 		writer.AddData ("HMD_rx", vOrigin.transform.position.x.ToString ());
 		writer.AddData ("HMD_ry", vOrigin.transform.position.y.ToString ());
 		writer.AddData ("HMD_rz", vOrigin.transform.position.z.ToString ());
 		writer.AddData ("Target_x", targetx.ToString ());
 		writer.AddData ("Target_y", targety.ToString ());
 		writer.AddData ("Target_z", targetz.ToString ());
-//		writer.AddData ("Target_lon", lon[vtOrder[targetID-1] -1].ToString ());
-//		writer.AddData ("Target_lat", lat[vtOrder[targetID-1] -1].ToString ());
+		writer.AddData ("Target_lon", lon [targetIDreal].ToString ());
+		writer.AddData ("Target_lat", lat [targetIDreal].ToString ());
 
 		writer.PushData ();
 
@@ -339,19 +326,22 @@ public class Virtual_record : MonoBehaviour {
 	}
 
 	void Record(){
+		
+		int targetIDreal = vtOrder [targetID] - 1;
 
 		time += Time.deltaTime;
 		writer.AddData ("KeyTime", time.ToString ());
+		writer.AddData ("KeyPress", "0");
 		writer.AddData ("Time-Time", Time.time.ToString ());
-		writer.AddData ("Target ID", (targetID - 1).ToString ());
+		writer.AddData ("Target ID", targetIDreal.ToString ());
 		writer.AddData ("HMD_rx", vOrigin.transform.position.x.ToString ());
 		writer.AddData ("HMD_ry", vOrigin.transform.position.y.ToString ());
 		writer.AddData ("HMD_rz", vOrigin.transform.position.z.ToString ());
-		writer.AddData ("Target_x", targetx.ToString ());
-		writer.AddData ("Target_y", targety.ToString ());
-		writer.AddData ("Target_z", targetz.ToString ());
-		writer.AddData ("Target_lon", lon[vtOrder[targetID-1] -1].ToString ());
-		writer.AddData ("Target_lat", lat[vtOrder[targetID-1] -1].ToString ());
+//		writer.AddData ("Target_x", targetx.ToString ());
+//		writer.AddData ("Target_y", targety.ToString ());
+//		writer.AddData ("Target_z", targetz.ToString ());
+//		writer.AddData ("Target_lon", lon[vtOrder[targetID-1] -1].ToString ());
+//		writer.AddData ("Target_lat", lat[vtOrder[targetID-1] -1].ToString ());
 
 		writer.PushData ();
 

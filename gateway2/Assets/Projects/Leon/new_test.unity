@@ -586,7 +586,6 @@ MonoBehaviour:
   - 0
   vTarget: {fileID: 1198210505}
   vOrigin: {fileID: 1978368898}
-  _showAll: 0
   vtDistance: 0.7
   _mirror: 0
   vtOrder: 
@@ -594,7 +593,8 @@ MonoBehaviour:
   targetObject: {fileID: 1198210506}
   countDown: {fileID: 92695532}
   roundCount: {fileID: 1134651889}
-  name: Leon0410
+  name: Leon0413
+  rtdistance: 0
 --- !u!1 &84188079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +1968,7 @@ Transform:
   m_GameObject: {fileID: 542079359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.9}
-  m_LocalScale: {x: 0.02, y: 0.05, z: 0.02}
+  m_LocalScale: {x: 0.02, y: 0.09, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1946888391}
   m_RootOrder: 2
@@ -2096,11 +2096,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c72a669f5a6e47e4788f8749f8d5adef, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c72a669f5a6e47e4788f8749f8d5adef, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c72a669f5a6e47e4788f8749f8d5adef, type: 3}
       propertyPath: m_LocalScale.z
@@ -2143,7 +2143,7 @@ Transform:
   m_GameObject: {fileID: 553423494}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.9}
-  m_LocalScale: {x: 0.02, y: 0.05, z: 0.02}
+  m_LocalScale: {x: 0.02, y: 0.08, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1946888391}
   m_RootOrder: 3
