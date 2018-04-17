@@ -28,11 +28,11 @@ public class Virtual_record : MonoBehaviour {
 	new int round;
 
 	public Material myColor;
-
 	public MeshRenderer targetObject;
 
 	public Text countDown;
 	public Text roundCount;
+	public bool _right;
 
 	new bool _target;
 
