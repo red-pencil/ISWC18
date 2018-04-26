@@ -32,8 +32,9 @@ public class Virtual_record : MonoBehaviour {
 
 	public Text countDown;
 	public Text roundCount;
+
+	public bool _left = false;
 	public bool _countDown = false;
-	public bool _right;
 
 	new bool _target;
 
