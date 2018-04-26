@@ -32,8 +32,9 @@ public class Virtual_record : MonoBehaviour {
 
 	public Text countDown;
 	public Text roundCount;
-	public bool _right = true;
+	public bool _left = false;
 	public bool _countDown = false;
+	public int vtNumber = 10;
 
 	new bool _target;
 
@@ -52,13 +53,16 @@ public class Virtual_record : MonoBehaviour {
 		//lat = new float[] {  0,   0,   0,   0, 30, 60, 90,  30, 60 , 45};
 		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180,  90};
 		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60, -60};
-		lonpi = new float[(int) lon.LongLength];
-		latpi = new float[(int) lat.LongLength];
+		lonpi = new float[vtNumber];
+		latpi = new float[vtNumber];
 
-		for (int i = 0; i < lon.Length; i++) {
+		//lonpi = new float[(int) lon.LongLength];
+		//latpi = new float[(int) lat.LongLength];
+
+		for (int i = 0; i < vtNumber; i++) {
 			lonpi [i] = lon [i] / 360 * 2 * Mathf.PI;
 		}
-		for (int i = 0; i < lat.Length; i++) {
+		for (int i = 0; i < vtNumber; i++) {
 			latpi [i] = lat [i] / 360 * 2 * Mathf.PI;
 		}
 
@@ -115,23 +119,28 @@ public class Virtual_record : MonoBehaviour {
 
 			if (_target) {
 
-				Destroy (GameObject.Find ("Sphere(Clone)"));
+				Destroy (GameObject.Find("Sphere(Clone)"));
 				
 			} else {
-
-				for (int i = 0; i < Mathf.Min (lon.Length, lat.Length); i++) {
+				
+				//for (int i = 0; i < Mathf.Min (lon.Length, lat.Length); i++) {
+				for (int i = 0; i < vtNumber; i++) {
 
 					targetx = Mathf.Sin (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
 					targety = Mathf.Sin (latpi [i]) * vtDistance;
 					targetz = Mathf.Cos (lonpi [i]) * Mathf.Cos (latpi [i]) * vtDistance;
 
-					clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity);
+					clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity, transform);
+					clone.transform.localPosition = new Vector3 (targetx, targety, targetz);
 
 					if (targetx > 0) {
 
-						clone = Instantiate (vTarget, new Vector3 (-targetx, targety, targetz), Quaternion.identity);
+						clone = Instantiate (vTarget, new Vector3 (-targetx, targety, targetz), Quaternion.identity, transform);
+						clone.transform.localPosition = new Vector3 (-targetx, targety, targetz);
 
 					}
+						
+
 
 				}
 					
@@ -281,9 +290,13 @@ public class Virtual_record : MonoBehaviour {
 			myColor.color =	Color.green;
 			Debug.Log (Time.time);
 	
-			countDown.text = "Find";
+		//	countDown.text = "Find";
+		if (_left)
+			countDown.text = "Find\n<<<";
+		else
+			countDown.text = "Find\n>>>";
 
-			if (targetID > 9) {
+		if (targetID > (vtNumber - 1)) {
 
 				RandomTarget ();
 				//targetID -= 10;
@@ -308,6 +321,9 @@ public class Virtual_record : MonoBehaviour {
 			{
 				targetx = -targetx;
 			}
+			
+		if (_left)
+			targetx = -targetx;
 
 			clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity, transform);
 			clone.transform.localPosition = new Vector3 (targetx, targety, targetz);
@@ -374,8 +390,8 @@ public class Virtual_record : MonoBehaviour {
 		vtOrder = new int[10];
 		Debug.Log("Freashing");
 
-		for (int i = 1; i < 11; i = i + 0) { // i = 1~10
-			targetIDtemp = Random.Range (1, 11); // exclusive = 1~10 don't use 0, because initial value is 0
+		for (int i = 1; i < (vtNumber + 1); i = i + 0) { // i = 1~10
+			targetIDtemp = Random.Range (1, (vtNumber + 1)); // exclusive = 1~10 don't use 0, because initial value is 0
 			vtPosInOrder = System.Array.IndexOf (vtOrder, targetIDtemp); // vtPosInOrder = 0~9, -1
 			//				Debug.Log("ID" + targetid + "_pos" + vtpos);
 			if (vtPosInOrder < 0) {
