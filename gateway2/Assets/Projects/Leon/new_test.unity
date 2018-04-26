@@ -593,10 +593,7 @@ MonoBehaviour:
   targetObject: {fileID: 1198210506}
   countDown: {fileID: 92695532}
   roundCount: {fileID: 1134651889}
-  targetNumber: 10
-  _left: 0
-  _countDown: 0
-  name: Leon0426
+  name: Leon0415
   rtdistance: 0
 --- !u!1 &84188079
 GameObject:
