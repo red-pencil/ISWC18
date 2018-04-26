@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class Virtual_record : MonoBehaviour {
 
-	new public float[] lon = new float[10];
-	new public float[] lat = new float[10];
+	new public float[] lon = new float[20];
+	new public float[] lat = new float[20];
 	new float[] lonpi;
 	new float[] latpi;
 
@@ -51,8 +51,11 @@ public class Virtual_record : MonoBehaviour {
 
 		//lon = new float[] { 90, 120, 150, 180, 90, 90, 90, 180, 180, 135};
 		//lat = new float[] {  0,   0,   0,   0, 30, 60, 90,  30, 60 , 45};
-		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180,  90};
-		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60, -60};
+		//lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180,  90};
+		//lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60, -60};
+		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 30, 60,   0,  30,  60,  0, 30, 60, 90, 120, 150, 180};
+		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30,  0,  0, -30, -30, -30, 30, 30, 30, 30,  30,  30,  30};
+
 		lonpi = new float[vtNumber];
 		latpi = new float[vtNumber];
 
@@ -217,6 +220,8 @@ public class Virtual_record : MonoBehaviour {
 	{
 		RecordKey (); //end KEY
 
+
+
 		Destroy (GameObject.Find ("Sphere(Clone)"));
 		Debug.Log ("Destroy");
 
@@ -242,7 +247,9 @@ public class Virtual_record : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		countDown.text = "GO";
 
-		if (targetID > 9) {
+		targetID++;
+
+		if (targetID > (vtNumber - 1)) {
 
 			RandomTarget ();
 			//targetID -= 10;
@@ -269,10 +276,10 @@ public class Virtual_record : MonoBehaviour {
 		}
 
 		clone = Instantiate (vTarget, new Vector3 (targetx, targety, targetz), Quaternion.identity, transform);
-
+		clone.transform.localPosition = new Vector3 (targetx, targety, targetz);
 		//clone.transform.parent = transform;
 
-		targetID++;
+
 
 		Debug.Log (Time.time);
 
@@ -384,10 +391,10 @@ public class Virtual_record : MonoBehaviour {
 
 	void RandomTarget(){
 
-		int vtPosInOrder = -1; // the position of certain targetID in the new order
+		int vtPosInOrder = -1; // the position of certain targetID in the new order, -1 means not exist
 		int targetIDtemp = 0;
 
-		vtOrder = new int[10];
+		vtOrder = new int[vtNumber];
 		Debug.Log("Freashing");
 
 		for (int i = 1; i < (vtNumber + 1); i = i + 0) { // i = 1~10
