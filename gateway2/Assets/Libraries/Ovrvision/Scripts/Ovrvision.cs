@@ -13,8 +13,8 @@ public class Ovrvision : MonoBehaviour
 	private COvrvisionUnity OvrPro = new COvrvisionUnity();
 
 	//Camera GameObject
-	public GameObject CameraLeft;
-    public GameObject CameraRight;
+	private GameObject CameraLeft;
+	private GameObject CameraRight;
 	private GameObject CameraPlaneLeft;
 	private GameObject CameraPlaneRight;
 	//Camera texture
@@ -26,7 +26,7 @@ public class Ovrvision : MonoBehaviour
 	private System.IntPtr CameraTexRightPtr = System.IntPtr.Zero;
 
 	//public propaty
-	public int cameraMode = COvrvisionUnity.OV_CAMVR_FULL;
+	public int cameraMode = (int)COvrvisionUnity.OVRResolution.OV_CAMVR_FULL;
 	public bool useOvrvisionAR = false;
 	public float ARsize = 0.15f;
 	public bool useOvrvisionTrack = false;
@@ -40,29 +40,40 @@ public class Ovrvision : MonoBehaviour
 	public int conf_wb_b = 1738;
 	public bool conf_wb_auto = true;
 
-	public int camViewShader = 0;
+	public int camViewShader ;
 
-	public Vector2 chroma_hue = new Vector2(0.9f,0.2f);
-	public Vector2 chroma_saturation = new Vector2(1.0f, 0.0f);
-	public Vector2 chroma_brightness = new Vector2(1.0f, 0.0f);
-	public Vector2 chroma_y = new Vector2(1.0f, 0.0f);
-	public Vector2 chroma_cb = new Vector2(1.0f, 0.0f);
-	public Vector2 chroma_cr = new Vector2(0.725f, 0.615f);
+	public Vector2 chroma_hue;
+    public Vector2 chroma_saturation;
+    public Vector2 chroma_brightness;
+    public Vector2 chroma_y;
+    public Vector2 chroma_cb;
+    public Vector2 chroma_cr;
 
 	//Ar Macro define
 	private const int MARKERGET_MAXNUM10 = 100; //max marker is 10
 	private const int MARKERGET_ARG10 = 10;
 	private const int MARKERGET_RECONFIGURE_NUM = 10;
 
+	private const float IMAGE_ZOFFSET = 0.02f;
 
-	// ------ Function ------
 
-	// Use this for initialization
-	void Awake() {
+    private void Reset()
+    {
+        chroma_hue = new Vector2(0.9f, 0.2f);
+        chroma_saturation = new Vector2(1.0f, 0.0f);
+        chroma_brightness = new Vector2(1.0f, 0.0f);
+        chroma_y = new Vector2(1.0f, 0.0f);
+        chroma_cb = new Vector2(1.0f, 0.0f);
+        chroma_cr = new Vector2(0.725f, 0.615f);
+    }
+    // ------ Function ------
+
+    // Use this for initialization
+    void Awake() {
 		//Open camera
-		if (OvrPro.Open(cameraMode, ARsize))
+		if (OvrPro.Open(cameraMode))
 		{
-			if (overlaySettings)
+			if (overlaySettings && false)
 			{
 				OvrPro.SetExposure(conf_exposure);
 				OvrPro.SetGain(conf_gain);
@@ -88,6 +99,8 @@ public class Ovrvision : MonoBehaviour
 			return;
 
 		// Initialize camera plane object(Left)
+		CameraLeft = this.transform.Find("LeftCamera").gameObject;
+		CameraRight = this.transform.Find("RightCamera").gameObject;
 		CameraPlaneLeft = CameraLeft.transform.Find("LeftImagePlane").gameObject;
 		CameraPlaneRight = CameraRight.transform.Find("RightImagePlane").gameObject;
 
@@ -127,17 +140,10 @@ public class Ovrvision : MonoBehaviour
 		//Plane reset
 		CameraPlaneLeft.transform.localScale = new Vector3(OvrPro.aspectW, -OvrPro.aspectH, 1.0f);
 		CameraPlaneRight.transform.localScale = new Vector3(OvrPro.aspectW, -OvrPro.aspectH, 1.0f);
-		CameraPlaneLeft.transform.localPosition = new Vector3(-0.032f, 0.0f, OvrPro.GetFloatPoint());
-		float gapx = (CameraRightGap.x - 0.032f) * (282.6231f) / (OvrPro.GetFloatPoint());
-		float gapy = CameraRightGap.y * (282.6231f) / (OvrPro.GetFloatPoint());
-		CameraPlaneRight.transform.localPosition = new Vector3(gapx * 0.001f, gapy * 0.001f, OvrPro.GetFloatPoint());
+		CameraPlaneLeft.transform.localPosition = new Vector3(-0.032f, 0.0f, OvrPro.GetFloatPoint() + IMAGE_ZOFFSET);
+		CameraPlaneRight.transform.localPosition = new Vector3(CameraRightGap.x - 0.040f, 0.0f, OvrPro.GetFloatPoint() + IMAGE_ZOFFSET);
 
-
-		if (useOvrvisionTrack)
-		{
-			OvrPro.useOvrvisionTrack_Calib = true;
-			CameraPlaneRight.active = !OvrPro.useOvrvisionTrack_Calib;
-		}
+		UnityEngine.XR.InputTracking.Recenter();
 
 		//yield return StartCoroutine("CallPluginAtEndOfFrames");
 	}
@@ -181,87 +187,14 @@ public class Ovrvision : MonoBehaviour
 		if (!OvrPro.camStatus)
 			return;
 
-		//get image data
-		OvrPro.useOvrvisionAR = false;
-		OvrPro.useOvrvisionTrack = false;
+
 
 		OvrPro.UpdateImage(CameraTexLeftPtr, CameraTexRightPtr);
 
-
-        if(Input.GetKeyDown(KeyCode.PageDown))
-        {
-            conf_exposure -= 500;
-            UpdateOvrvisionSetting();
-        }
-        if (Input.GetKeyDown(KeyCode.PageUp))
-        {
-            conf_exposure += 500;
-            UpdateOvrvisionSetting();
-        }
-    }
-
-	//Ovrvision AR Render to OversitionTracker Objects.
-	private int OvrvisionARRender()
-	{
-		float[] markerGet = new float[MARKERGET_MAXNUM10];
-		GCHandle marker = GCHandle.Alloc(markerGet, GCHandleType.Pinned);
-
-		//Get marker data
-		int ri = OvrPro.OvrvisionGetAR(marker.AddrOfPinnedObject(), MARKERGET_MAXNUM10);
-
-		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
-		foreach (OvrvisionTracker otobj in otobjs)
-		{
-			otobj.UpdateTransformNone();
-			for (int i = 0; i < ri; i++)
-			{
-				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])
-				{
-					otobj.UpdateTransform(markerGet, i);
-					break;
-				}
-			}
-		}
-
-		marker.Free();
-
-		return ri;
 	}
-
-	//Ovrvision Tracking Render
-	private int OvrvisionTrackRender()
-	{
-		float[] markerGet = new float[3];
-		GCHandle marker = GCHandle.Alloc(markerGet, GCHandleType.Pinned);
-		//Get marker data
-		int ri = OvrPro.OvrvisionGetTrackingVec3(marker.AddrOfPinnedObject());
-		if (ri == 0)
-			return 0;
-
-		Vector3 fgpos = new Vector3(markerGet[0], markerGet[1], markerGet[2]);
-
-		OvrvisionHandTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionHandTracker)) as OvrvisionHandTracker[];
-		foreach (OvrvisionHandTracker otobj in otobjs)
-		{
-			otobj.UpdateTransformNone();
-
-			if (fgpos.z <= 0.0f)
-				continue;
-
-			otobj.UpdateTransform(fgpos);
-		}
-
-		marker.Free();
-
-		return ri;
-	}
-
 	// Quit
 	void OnDestroy()
 	{
-		if (!OvrPro.camStatus)
-			return;
-
 		//Close camera
 		if(!OvrPro.Close())
 			Debug.LogError ("Ovrvision close error!!");

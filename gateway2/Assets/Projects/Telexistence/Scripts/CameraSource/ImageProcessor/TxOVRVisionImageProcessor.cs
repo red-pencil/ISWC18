@@ -84,17 +84,17 @@ public class TxOVRVisionImageProcessor:ITxEyesImageProcessor {
 
 	void _init(Vector2 sz)
 	{
-		int type = COvrvisionUnity.OV_CAMVR_VGA;
+		COvrvisionUnity.OVRResolution type = COvrvisionUnity.OVRResolution.OV_CAMVR_VGA;
 		if (sz.x == 640)
-			type = COvrvisionUnity.OV_CAMVR_VGA;
+			type = COvrvisionUnity.OVRResolution.OV_CAMVR_VGA;
 		else if (sz.x == 960)
-			type = COvrvisionUnity.OV_CAMVR_FULL;
+			type = COvrvisionUnity.OVRResolution.OV_CAMVR_FULL;
 		else if (sz.x == 1280 && sz.y==800)
-			type = COvrvisionUnity.OV_CAMVR_WIDE;
+			type = COvrvisionUnity.OVRResolution.OV_CAMVR_WIDE;
 		else if (sz.x == 1280 && sz.y==960)
-			type = COvrvisionUnity.OV_CAMHD_FULL;
+			type = COvrvisionUnity.OVRResolution.OV_CAMHD_FULL;
 		else if (sz.x == 1920 && sz.y==1080)
-			type = COvrvisionUnity.OV_CAM5MP_FHD;
+			type = COvrvisionUnity.OVRResolution.OV_CAM5MP_FHD;
 		else
 			return;
 

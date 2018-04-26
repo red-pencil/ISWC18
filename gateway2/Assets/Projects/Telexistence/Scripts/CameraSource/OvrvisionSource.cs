@@ -75,7 +75,7 @@ public class OvrvisionSource : ICameraSource {
 
 	public void Init()
 	{
-		if (!ovrPro.Open (COvrvisionUnity.OV_CAMVR_FULL, 0.15f)) {
+		if (!ovrPro.Open ((int)COvrvisionUnity.OVRResolution.OV_CAMVR_FULL)) {
 			return;
 		} else {
 
@@ -94,7 +94,7 @@ public class OvrvisionSource : ICameraSource {
 		UpdateOvrvisionSetting ();
 		Thread.Sleep (200);
 
-		ovrPro.useOvrvisionTrack_Calib = true;
+//		ovrPro.useOvrvisionTrack_Calib = true;
 		ovrPro. useProcessingQuality= COvrvisionUnity.OV_CAMQT_DMSRMP;
 
 		for (int i = 0; i < 2; ++i) {
