@@ -32,9 +32,11 @@ public class Virtual_record : MonoBehaviour {
 
 	public Text countDown;
 	public Text roundCount;
+
 	public int targetNumber = 10;
 	public bool _left = false;
 	public bool _countDown = false;
+
 
 	new bool _target;
 
@@ -109,18 +111,7 @@ public class Virtual_record : MonoBehaviour {
 
 		/// generate all targets once
 		/// 
-		if (Input.GetKeyDown (KeyCode.KeypadEnter)) {
-
-//			while (_target)
-//			{
-
-//				Destroy (GameObject.Find ("Sphere(Clone)"));
-//			if (GameObject.Find ("Sphere(Clone)") != null)
-//				_target = true;
-//			else
-//				_target = false;
-
-//			}
+		if (Input.GetKeyDown (KeyCode.Z)) {
 
 			if (_target) {
 
@@ -152,29 +143,23 @@ public class Virtual_record : MonoBehaviour {
 
 		/// exp with 5 seconds waiting time
 
+		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.Two)) {
 
+			StartCoroutine (Exp ());
+		}
 
 		/// exp without cooling down time
 
-		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.One)) {
-
-			if (_countDown) {
-				
-				StartCoroutine (Exp ());
-
-			} else {
-				
-
+		if (Input.GetKeyDown (KeyCode.A) || OVRInput.GetDown(OVRInput.Button.One)) {
+			
 			if (_target) {
 				Destroy (GameObject.Find ("Sphere(Clone)"));
 				Debug.Log ("Destroy");
 				countDown.text = "Back";
 
 			} else {
-				
-					GenerateTarget ();
-				}
 
+				GenerateTarget ();
 			}
 
 			RecordKey ();
