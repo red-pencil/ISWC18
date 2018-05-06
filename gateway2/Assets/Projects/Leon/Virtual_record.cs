@@ -30,7 +30,7 @@ public class Virtual_record : MonoBehaviour {
 	public Material myColor;
 	public MeshRenderer targetObject;
 
-	public Text countDown;
+	public Text countDown = null;
 	public Text roundCount;
 	public bool _left = false;
 	public bool _countDown = false;
@@ -42,7 +42,9 @@ public class Virtual_record : MonoBehaviour {
 	bool _start = false;
 	bool _pause = false;
 	new float time;
-	public string name = "your name";
+	public string user_name = "your name";
+    public InputField inputName;
+    public InputField inputVT;
 
 	public float rtdistance=0;
 
@@ -90,7 +92,7 @@ public class Virtual_record : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        
 		if (clone != null) {
 			rtdistance = Vector3.Distance (clone.transform.position, vOrigin.transform.position);
 		}
@@ -143,8 +145,6 @@ public class Virtual_record : MonoBehaviour {
 
 					}
 						
-
-
 				}
 					
 			}
@@ -158,7 +158,7 @@ public class Virtual_record : MonoBehaviour {
 
 		/// exp without cooling down time
 
-		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.One)) {
+		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Three)) {
 
 			if (_countDown) {
 				
@@ -185,7 +185,7 @@ public class Virtual_record : MonoBehaviour {
 
 		/// record data
 		/// 
-		if (Input.GetKeyDown (KeyCode.Tab)) {
+		if (Input.GetKeyDown (KeyCode.A)) {
 			_start = !_start;
 
 			if (_start)
@@ -196,13 +196,12 @@ public class Virtual_record : MonoBehaviour {
 			else
 			{
 				Debug.Log("Stop Recording");
-				writer.WriteValues(Application.dataPath + "\\vtdata\\" + name +".txt");
+				writer.WriteValues(Application.dataPath + "\\vtdata\\" + user_name + ".txt");
 			}
 
 		}
 
 		if (Input.GetKeyDown (KeyCode.Q)) {
-
 			_pause = !_pause;
 			Debug.Log("Pause Recording");
 		}
@@ -211,7 +210,7 @@ public class Virtual_record : MonoBehaviour {
 			Record ();
 
 
-		}
+    }
 
 	/// Generates the target. 5 seconds waiting time
 	/// 
@@ -298,10 +297,7 @@ public class Virtual_record : MonoBehaviour {
 			Debug.Log (Time.time);
 	
 		//	countDown.text = "Find";
-		if (_left)
-			countDown.text = "Find\n<<<";
-		else
-			countDown.text = "Find\n>>>";
+		
 
 		if (targetID > (vtNumber - 1)) {
 
@@ -309,10 +305,17 @@ public class Virtual_record : MonoBehaviour {
 				//targetID -= 10;
 				targetID = 0;
 				round++;
+            _left = !_left;
 
 			}
 
-			roundCount.text = "Round " + round + "-" + targetID;
+        if (_left)
+            countDown.text = "<<<\nFind";
+        else
+            countDown.text = ">>>\nFind";
+
+
+        roundCount.text = "Round " + round + "-" + targetID;
 
 			int i = 1;
 			i = vtOrder [targetID] - 1;
@@ -388,8 +391,20 @@ public class Virtual_record : MonoBehaviour {
 
 	}
 
+    void OnGUI()
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("User Name:");
+        user_name=GUILayout.TextArea(user_name);
+        GUILayout.EndHorizontal();
+        if (_start)
+            GUILayout.Label("Data Recording: Started");
+        else
+            GUILayout.Label("Data Recording: Stopped");
+    }
 
-	void RandomTarget(){
+
+    void RandomTarget(){
 
 		int vtPosInOrder = -1; // the position of certain targetID in the new order, -1 means not exist
 		int targetIDtemp = 0;

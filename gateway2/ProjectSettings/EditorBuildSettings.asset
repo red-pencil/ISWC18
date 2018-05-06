@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Projects/Leon/Test.unity
     guid: 071805ef3c7c71b47b9fd49d711483ef
+  - enabled: 1
+    path: Assets/Projects/Leon/new_test.unity
+    guid: 5f038c62230fff84bb79267c8bb7ee72

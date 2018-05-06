@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class virtual_hand : MonoBehaviour {
 
+	public Material myColor;
+	public MeshRenderer targetObject;
+
 	public enum ControllerID
 	{
 		None,
@@ -54,6 +57,37 @@ public class virtual_hand : MonoBehaviour {
 		transform.localPosition = handPosNew;
 
 		transform.localRotation = OVRInput.GetLocalControllerRotation(c);
+
+
+
+		///// change the color
+		myColor = targetObject.material;
+
+		if (GameObject.Find ("Sphere(Clone)") == null)
+			myColor.color =	Color.white;
 		
 	}
+
+	void OnTriggerEnter (Collider other) {
+
+		//
+		myColor.color =	Color.green;
+		//myColor.albedo =
+		//gameObject.transform.localScale = new Vector3 (0, 0, 0);
+		Debug.Log ("enter");
+	
+	}
+
+	void OnTriggerExit (Collider other) {
+
+		//myColor = targetObject.material;
+		myColor.color =	Color.white;
+		//myColor.albedo =
+		//gameObject.transform.localScale = new Vector3 (0.1f, 0.2f, 0.3f);
+		Debug.Log ("Leave");
+
+	}
+
+
+
 }

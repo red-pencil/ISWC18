@@ -157,13 +157,13 @@ public class recordData : MonoBehaviour {
 		_newTarget = false;
 	}
 
-	void OnGUI()
-	{
-		if (_started)
-			GUILayout.Label ("Data Recording: Started");
-		else
-			GUILayout.Label ("Data Recording: Stopped");
-	}
+	//void OnGUI()
+	//{
+	//	if (_started)
+	//		GUILayout.Label ("Data Recording: Started");
+	//	else
+	//		GUILayout.Label ("Data Recording: Stopped");
+	//}
 
 	void OptiTrack () {
 

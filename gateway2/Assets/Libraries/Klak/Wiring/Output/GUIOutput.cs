@@ -47,7 +47,7 @@ namespace Klak.Wiring
 
         void OnGUI()
         {
-			GUI.Box (new Rect (10, 20, 200, 30),"Current Mode is: "+modes[_mode]);
+			GUI.Box (new Rect (110, 20, 300, 30),"Current Mode is: "+modes[_mode]);
         }
 
         #endregion
