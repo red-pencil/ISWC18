@@ -48,6 +48,8 @@ public class virtual_hand : MonoBehaviour {
 		handPosToHeadNew = Quaternion.Inverse(vOrigin.transform.rotation) * handPosToHead;//twice
 		handPosNew = handPosToHeadNew + vOrigin.transform.position;
 
+		//handPosNew = handPos;
+
 
 		handPosNew.x += offsetX;
 		handPosNew.y += offsetY;

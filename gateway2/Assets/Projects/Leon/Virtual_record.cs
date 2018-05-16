@@ -34,7 +34,7 @@ public class Virtual_record : MonoBehaviour {
 	public Text roundCount;
 	public bool _left = false;
 	public bool _countDown = false;
-	public int vtNumber = 10;
+	public int vtNumber = 6;
 
 	new bool _target;
 
@@ -55,8 +55,10 @@ public class Virtual_record : MonoBehaviour {
 		//lat = new float[] {  0,   0,   0,   0, 30, 60, 90,  30, 60 , 45};
 		//lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 180,  90};
 		//lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30, -60, -60};
-		lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 30, 60,   0,  30,  60,  0, 30, 60, 90, 120, 150, 180};
-		lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30,  0,  0, -30, -30, -30, 30, 30, 30, 30,  30,  30,  30};
+		//lon = new float[] { 90, 120, 150, 180, 90, 120, 150, 180, 30, 60,   0,  30,  60,  0, 30, 60, 90, 120, 150, 180};
+		//lat = new float[] {  0,   0,   0,   0,-30, -30, -30, -30,  0,  0, -30, -30, -30, 30, 30, 30, 30,  30,  30,  30};
+		lon = new float[] {  30, 60, 90, 120, 150, 180,  0,  30,  60,  90, 120, 150, 180,  0, 30, 60, 90, 120, 150, 180};
+		lat = new float[] {  0,   0,   0,   0,  0,  0, -30, -30, -30, -30, -30, -30, -30, 30, 30, 30, 30,  30,  30,  30};
 
 		lonpi = new float[vtNumber];
 		latpi = new float[vtNumber];
@@ -158,7 +160,7 @@ public class Virtual_record : MonoBehaviour {
 
 		/// exp without cooling down time
 
-		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Three)) {
+		if (Input.GetKeyDown (KeyCode.Space) || OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Three) || OVRInput.GetDown(OVRInput.Button.Four)) {
 
 			if (_countDown) {
 				
@@ -257,7 +259,7 @@ public class Virtual_record : MonoBehaviour {
 
 		}
 
-		roundCount.text = "Round " + round + "-" + targetID;
+		roundCount.text = "(" + vtNumber + " targets)\n" + "Round " + round + " - " + targetID;
 
 		int i = 1;
 		i = vtOrder [targetID] - 1;
@@ -315,7 +317,7 @@ public class Virtual_record : MonoBehaviour {
             countDown.text = ">>>\nFind";
 
 
-        roundCount.text = "Round " + round + "-" + targetID;
+		roundCount.text = "(" + vtNumber + " targets - " + vtDistance + " m)\nRound " + round + " - " + targetID;
 
 			int i = 1;
 			i = vtOrder [targetID] - 1;
