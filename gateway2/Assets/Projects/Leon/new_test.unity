@@ -595,7 +595,7 @@ MonoBehaviour:
   roundCount: {fileID: 1134651889}
   _left: 0
   _countDown: 0
-  vtNumber: 6
+  vtNumber: 7
   user_name: your name
   inputName: {fileID: 1645070268}
   inputVT: {fileID: 0}
@@ -1896,14 +1896,13 @@ GameObject:
   - component: {fileID: 515074548}
   - component: {fileID: 515074547}
   - component: {fileID: 515074546}
-  - component: {fileID: 515074545}
   m_Layer: 0
   m_Name: RSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &515074544
 Transform:
   m_ObjectHideFlags: 0
@@ -1915,20 +1914,8 @@ Transform:
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
   m_Children: []
   m_Father: {fileID: 2042023533}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &515074545
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 515074543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &515074546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1943,9 +1930,10 @@ MonoBehaviour:
   myColor: {fileID: 0}
   targetObject: {fileID: 515074547}
   vOrigin: {fileID: 1978368898}
-  offsetX: -0.1
-  offsetY: -0.6
+  offsetX: 0
+  offsetY: -0.5
   offsetZ: 0
+  _noEnhance: 1
   Controller: 2
 --- !u!23 &515074547
 MeshRenderer:
@@ -3058,9 +3046,10 @@ MonoBehaviour:
   myColor: {fileID: 0}
   targetObject: {fileID: 868609307}
   vOrigin: {fileID: 1978368898}
-  offsetX: -0.1
+  offsetX: 0
   offsetY: -0.5
   offsetZ: 0
+  _noEnhance: 1
   Controller: 1
 --- !u!23 &868609307
 MeshRenderer:
@@ -4777,7 +4766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1253313278
 Transform:
   m_ObjectHideFlags: 0
@@ -4789,7 +4778,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.19999999, z: 0.29999998}
   m_Children: []
   m_Father: {fileID: 2042023533}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1253313279
 MonoBehaviour:
@@ -4808,6 +4797,7 @@ MonoBehaviour:
   offsetX: 0
   offsetY: -0.42
   offsetZ: 0
+  _noEnhance: 0
   Controller: 2
 --- !u!23 &1253313280
 MeshRenderer:
@@ -5592,7 +5582,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.19999999, z: 0.29999998}
   m_Children: []
   m_Father: {fileID: 2042023533}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1541132433
 MonoBehaviour:
@@ -5611,6 +5601,7 @@ MonoBehaviour:
   offsetX: 0
   offsetY: -0.42
   offsetZ: 0
+  _noEnhance: 0
   Controller: 1
 --- !u!23 &1541132434
 MeshRenderer:
@@ -6798,7 +6789,7 @@ MonoBehaviour:
   vOrigin: {fileID: 1978368898}
   _compensateP: 1
   _compensateR: 0
-  _compensateRI: 1
+  _compensateRI: 0
 --- !u!1 &1974470095
 GameObject:
   m_ObjectHideFlags: 0
@@ -7056,9 +7047,9 @@ Transform:
   - {fileID: 2110825105}
   - {fileID: 685077536}
   - {fileID: 868609304}
+  - {fileID: 515074544}
   - {fileID: 1253313278}
   - {fileID: 1541132432}
-  - {fileID: 515074544}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

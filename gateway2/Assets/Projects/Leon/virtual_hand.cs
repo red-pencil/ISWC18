@@ -25,6 +25,7 @@ public class virtual_hand : MonoBehaviour {
 	new public float offsetY;
 	new public float offsetZ;
 
+	public bool _noEnhance = false;
 	public ControllerID Controller;
 
 	// Use this for initialization
@@ -48,7 +49,8 @@ public class virtual_hand : MonoBehaviour {
 		handPosToHeadNew = Quaternion.Inverse(vOrigin.transform.rotation) * handPosToHead;//twice
 		handPosNew = handPosToHeadNew + vOrigin.transform.position;
 
-		//handPosNew = handPos;
+		if (_noEnhance)
+			handPosNew = handPos;
 
 
 		handPosNew.x += offsetX;
