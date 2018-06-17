@@ -586,7 +586,7 @@ MonoBehaviour:
   - 0
   vTarget: {fileID: 1198210505}
   vOrigin: {fileID: 1978368898}
-  vtDistance: 0.3
+  vtDistance: 0.5
   _mirror: 0
   vtOrder: 
   myColor: {fileID: 2100000, guid: df60b2692eb35fc42ae47e86bfed941c, type: 2}
@@ -595,7 +595,7 @@ MonoBehaviour:
   roundCount: {fileID: 1134651889}
   _left: 0
   _countDown: 0
-  vtNumber: 7
+  vtNumber: 20
   user_name: your name
   inputName: {fileID: 1645070268}
   inputVT: {fileID: 0}
@@ -1930,8 +1930,8 @@ MonoBehaviour:
   myColor: {fileID: 0}
   targetObject: {fileID: 515074547}
   vOrigin: {fileID: 1978368898}
-  offsetX: 0
-  offsetY: -0.5
+  offsetX: 0.1
+  offsetY: -0.3
   offsetZ: 0
   _noEnhance: 1
   Controller: 2
@@ -3046,8 +3046,8 @@ MonoBehaviour:
   myColor: {fileID: 0}
   targetObject: {fileID: 868609307}
   vOrigin: {fileID: 1978368898}
-  offsetX: 0
-  offsetY: -0.5
+  offsetX: -0.1
+  offsetY: -0.3
   offsetZ: 0
   _noEnhance: 1
   Controller: 1
@@ -7033,7 +7033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2042023533
 Transform:
   m_ObjectHideFlags: 0

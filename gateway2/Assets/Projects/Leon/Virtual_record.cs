@@ -380,9 +380,9 @@ public class Virtual_record : MonoBehaviour {
 		writer.AddData ("KeyPress", "0");
 		writer.AddData ("Time-Time", Time.time.ToString ());
 		writer.AddData ("Target ID", targetIDreal.ToString ());
-		writer.AddData ("HMD_rx", vOrigin.transform.position.x.ToString ());
-		writer.AddData ("HMD_ry", vOrigin.transform.position.y.ToString ());
-		writer.AddData ("HMD_rz", vOrigin.transform.position.z.ToString ());
+		writer.AddData ("HMD_rx", vOrigin.transform.rotation.x.ToString ());
+		writer.AddData ("HMD_ry", vOrigin.transform.rotation.y.ToString ());
+		writer.AddData ("HMD_rz", vOrigin.transform.rotation.z.ToString ());
 //		writer.AddData ("Target_x", targetx.ToString ());
 //		writer.AddData ("Target_y", targety.ToString ());
 //		writer.AddData ("Target_z", targetz.ToString ());
