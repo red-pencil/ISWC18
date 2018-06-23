@@ -20,12 +20,19 @@ public class virtual_hand : MonoBehaviour {
 	new Vector3 handPosToHead;
 	new Vector3 handPosNew;
 	new Vector3 handPosToHeadNew;
+	new Vector3 handPosToHeadZero;
+
+	new Vector3 handRotAxis;
+	new Quaternion handRot;
+	new Vector3 debugRay;
 
 	new public float offsetX;
 	new public float offsetY;
 	new public float offsetZ;
+	new float handLength;
 
-	public bool _noEnhance = false;
+	public bool _isCompensate = false;
+	public bool _isAugmented = false;
 	public ControllerID Controller;
 
 	// Use this for initialization
@@ -45,12 +52,37 @@ public class virtual_hand : MonoBehaviour {
 
 		handPos = OVRInput.GetLocalControllerPosition (c);
 		handPosToHead = handPos - vOrigin.transform.position;
+
+		if (_isAugmented) {
+
+			handPosToHeadZero = Vector3.forward;
+			handRot.SetFromToRotation (Vector3.forward, handPosToHead.normalized);
+			handPosToHead = handRot * handPosToHead;  // twice
+
+			//handLength = handPosToHead.magnitude;
+			//handPosToHeadZero = new Vector3(0.0f, 0.0f, handLength);
+			//handRotAxis = Vector3.Cross(handPosToHeadZero, handPosToHead);
+			//handRot.w = Mathf.Sqrt (handPosToHeadZero.sqrMagnitude * handPosToHead.sqrMagnitude) + Vector3.Dot(handPosToHeadZero, handPosToHead);
+			//handRot.x = handRotAxis.x;
+			//handRot.y = handRotAxis.y;
+			//handRot.z = handRotAxis.z;
+			Vector3 debugR = handRot * handRot * Vector3.forward;
+			Debug.DrawRay (transform.position, debugR, Color.red, 2f, false);
+			Debug.Log ("hand rotation" + handRot);
+			//handPosToHead = handRot * handPosToHead;
+		
+		}
+
 		//handPosToHead = vOrigin.transform.rotation * handPosToHead;//twice
-		handPosToHeadNew = Quaternion.Inverse(vOrigin.transform.rotation) * handPosToHead;//twice
+		if (_isCompensate) {
+			handPosToHeadNew = Quaternion.Inverse (vOrigin.transform.rotation) * handPosToHead;//twice
+		} else {
+			handPosToHeadNew = handPosToHead;
+		}
+		
 		handPosNew = handPosToHeadNew + vOrigin.transform.position;
 
-		if (_noEnhance)
-			handPosNew = handPos;
+
 
 
 		handPosNew.x += offsetX;
@@ -60,7 +92,7 @@ public class virtual_hand : MonoBehaviour {
 
 		transform.localPosition = handPosNew;
 
-		transform.localRotation = OVRInput.GetLocalControllerRotation(c);
+		//transform.localRotation = OVRInput.GetLocalControllerRotation(c);
 
 
 
