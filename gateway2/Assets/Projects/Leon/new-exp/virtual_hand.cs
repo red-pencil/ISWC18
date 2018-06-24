@@ -16,11 +16,11 @@ public class virtual_hand : MonoBehaviour {
 		
 	public GameObject vOrigin;
 
-	new Vector3 handPos;
-	new Vector3 handPosToHead;
-	new Vector3 handPosNew;
-	new Vector3 handPosToHeadNew;
-	new Vector3 handPosToHeadZero;
+	Vector3 handPos;
+	Vector3 handPosToHead;
+	public Vector3 handPosNew;
+	Vector3 handPosToHeadNew;
+	Vector3 handPosToHeadZero;
 
 	new Vector3 handRotAxis;
 	new Quaternion handRot;
@@ -68,7 +68,7 @@ public class virtual_hand : MonoBehaviour {
 			//handRot.z = handRotAxis.z;
 			Vector3 debugR = handRot * handRot * Vector3.forward;
 			Debug.DrawRay (transform.position, debugR, Color.red, 2f, false);
-			Debug.Log ("hand rotation" + handRot);
+			//ssDebug.Log ("hand rotation" + handRot);
 			//handPosToHead = handRot * handPosToHead;
 		
 		}
@@ -79,21 +79,16 @@ public class virtual_hand : MonoBehaviour {
 		} else {
 			handPosToHeadNew = handPosToHead;
 		}
+
+		handPosToHeadNew.x += offsetX;
+		handPosToHeadNew.y += offsetY;
+		handPosToHeadNew.z += offsetZ;
 		
 		handPosNew = handPosToHeadNew + vOrigin.transform.position;
-
-
-
-
-		handPosNew.x += offsetX;
-		handPosNew.y += offsetY;
-		handPosNew.z += offsetZ;
-
 
 		transform.localPosition = handPosNew;
 
 		//transform.localRotation = OVRInput.GetLocalControllerRotation(c);
-
 
 
 		///// change the color
