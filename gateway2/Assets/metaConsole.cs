@@ -74,8 +74,8 @@ public class metaConsole : MonoBehaviour {
 		Vector3 augmentedOrientation = compensateInfo.gameObject.transform.rotation * Vector3.forward;
 
 		metaInfo.text += "\n\n-----Vision Info-----" +
-			"\noritation(real): " + transLoc (realOrientation) +
-			"\noritation(augmented): " + transLoc (augmentedOrientation);
+			"\noritation(real): " + transLoc (realOrientation).ToString() +
+			"\noritation(augmented): " + transLoc (augmentedOrientation).ToString();
 
 		bool _handCompensateLeft = handInfoLeft._isCompensate;
 		bool _handCompensateRight = handInfoRight._isCompensate;
@@ -83,18 +83,22 @@ public class metaConsole : MonoBehaviour {
 		bool _handAugmentRight = handInfoRight._isAugmented;
 		Vector3 handOffsetLeft = new Vector3 (handInfoLeft.offsetX, handInfoLeft.offsetY, handInfoLeft.offsetZ);
 		Vector3 handOffserRight = new Vector3 (handInfoRight.offsetX, handInfoRight.offsetY, handInfoRight.offsetZ);
-		Vector3 handPosLeft = handInfoLeft.gameObject.transform.position - handInfoLeft.vOrigin.transform.position;
-		Vector3 handPosRight = handInfoRight.gameObject.transform.position - handInfoRight.vOrigin.transform.position;
+		Vector3 handPosLeft = GameObject.Find("LSphere").transform.position - GameObject.Find("CenterEyeAnchor").transform.position;
+		Vector3 handPosRight = GameObject.Find ("RSphere").transform.position - GameObject.Find ("CenterEyeAnchor").transform.position;
+		//Vector3 handPosLeft = handInfoLeft.gameObject.transform.position - handInfoLeft.vOrigin.transform.position;
+		//Vector3 handPosRight = handInfoRight.gameObject.transform.position - handInfoRight.vOrigin.transform.position;
+
+		Vector3 rawPosRight = handInfoRight.handPos;
 
 		metaInfo.text += "\n\n-----Left Hand Info-----" +
 		"\nhand location: " + handInfoLeft.transform.localPosition.ToString () +
-			transLoc (handPosLeft) +
+			(transLoc (handPosLeft) + transLoc (handPosRight)).ToString() +
 			"\ncompensate: " + toText(_handCompensateLeft) +
 			"\naugment: " + toText(_handAugmentLeft);
 
 		metaInfo.text += "\n\n-----Right Hand Info-----" +
-			"\nhand location: " + handInfoRight.transform.localPosition.ToString () +
-			transLoc (handPosRight)  +
+		"\nhand location: " + handInfoRight.transform.localPosition.ToString () +
+			(transLoc(rawPosRight)).ToString () + (transLoc(handPosRight) + transLoc(realOrientation)).ToString() +
 			"\ncompensate: " + toText(_handCompensateRight) +
 			"\naugment: " + toText(_handAugmentRight);
 
@@ -121,14 +125,15 @@ public class metaConsole : MonoBehaviour {
 		return q.eulerAngles.ToString ();
 	}
 
-	public string transLoc (Vector3 loc)
+	public Vector2 transLoc (Vector3 loc)
 	{
 		float lon, lat;
 		Vector3.Normalize(loc);
-		lon = Mathf.Atan(loc.x / loc.z) * Mathf.Rad2Deg;
+		lon = Mathf.Atan2 (loc.x , loc.z) * Mathf.Rad2Deg;
 		lat = Mathf.Asin (loc.y) * Mathf.Rad2Deg;
 
-		return "(" + lat.ToString("N1") + "," + lon.ToString("N1") + ")";
+		return new Vector2 (lat, lon);
+		//return "(" + lat.ToString("N1") + "," + lon.ToString("N1") + ")";
 
 	}
 

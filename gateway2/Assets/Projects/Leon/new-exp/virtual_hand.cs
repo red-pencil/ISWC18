@@ -16,7 +16,7 @@ public class virtual_hand : MonoBehaviour {
 		
 	public GameObject vOrigin;
 
-	Vector3 handPos;
+	public Vector3 handPos;
 	Vector3 handPosToHead;
 	public Vector3 handPosNew;
 	Vector3 handPosToHeadNew;
