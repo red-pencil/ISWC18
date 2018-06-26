@@ -337,14 +337,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15151121}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5519f4e1bb59f5d4ab16269af703c727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   metaInfo: {fileID: 1299796223}
-  _isInfoOn: 1
-  conditionSwitch: 0
+  _developerMode: 1
+  conditionSwitch: 3
 --- !u!4 &15151123
 Transform:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15151121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.48531327, y: 0.016601562, z: 0.79087865}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -629,7 +629,7 @@ MonoBehaviour:
   - 0
   vTarget: {fileID: 1198210505}
   vOrigin: {fileID: 1978368898}
-  vtDistance: 0.3
+  vtDistance: 0.5
   _mirror: 0
   vtOrder: 
   myColor: {fileID: 2100000, guid: df60b2692eb35fc42ae47e86bfed941c, type: 2}
@@ -638,7 +638,7 @@ MonoBehaviour:
   roundCount: {fileID: 1134651889}
   _left: 0
   _countDown: 0
-  vtNumber: 6
+  vtNumber: 20
   user_name: your name
   inputName: {fileID: 1645070268}
   inputVT: {fileID: 0}
@@ -1975,8 +1975,8 @@ MonoBehaviour:
   vOrigin: {fileID: 1978368898}
   handPos: {x: 0, y: 0, z: 0}
   handPosNew: {x: 0, y: 0, z: 0}
-  offsetX: 0
-  offsetY: -0.4
+  offsetX: -0.1
+  offsetY: -0
   offsetZ: 0.1
   _isCompensate: 0
   _isAugmented: 0
@@ -3094,8 +3094,8 @@ MonoBehaviour:
   vOrigin: {fileID: 1978368898}
   handPos: {x: 0, y: 0, z: 0}
   handPosNew: {x: 0, y: 0, z: 0}
-  offsetX: 0
-  offsetY: -0.4
+  offsetX: -0.1
+  offsetY: 0
   offsetZ: 0.1
   _isCompensate: 0
   _isAugmented: 0
@@ -5156,7 +5156,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1299796221}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -125.20001, y: 11.300003, z: 0}
+  m_LocalPosition: {x: -125, y: -70, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1057868302}
@@ -5164,7 +5164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -275.2, y: -138.7}
+  m_AnchoredPosition: {x: -275, y: -220}
   m_SizeDelta: {x: 350, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299796223
