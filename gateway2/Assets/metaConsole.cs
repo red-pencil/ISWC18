@@ -6,7 +6,19 @@ using UnityEngine.UI;
 public class metaConsole : MonoBehaviour {
 
 	public Text metaInfo;
-	public bool _isInfoOn = true;
+	public bool _developerMode = true;
+
+	public enum ControllerID
+	{
+		One,
+		Two,
+		Three,
+		Four,
+		Five,
+		Six
+	}
+
+	public ControllerID conditionSwitch;
 
 	private virtual_exp_3 compensateInfo;
 	private Virtual_record targetInfo;
@@ -20,21 +32,95 @@ public class metaConsole : MonoBehaviour {
 		targetInfo = GameObject.Find ("Reproduce").GetComponent<Virtual_record> ();
 		handInfoLeft = GameObject.Find ("LSphere").GetComponent<virtual_hand> ();
 		handInfoRight = GameObject.Find ("RSphere").GetComponent<virtual_hand> ();
-		
+
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		switch (conditionSwitch) {
+
+		case ControllerID.One:  // neck x1 hand x0
+
+			compensateInfo._compensateRI = false;
+			targetInfo.vtDistance = 0.5f;
+			targetInfo.vtNumber = 20;
+			GameObject.Find ("LSphere").transform.localScale = new Vector3 (0, 0, 0);
+			GameObject.Find ("RSphere").transform.localScale = new Vector3 (0, 0, 0);
+			metaInfo.text = "--- 1 ---\n";
+
+			break;
+
+		case ControllerID.Two:  // neck x2 hand x0
+
+			compensateInfo._compensateRI = true;
+			targetInfo.vtDistance = 0.5f;
+			targetInfo.vtNumber = 20;
+			GameObject.Find ("LSphere").transform.localScale = new Vector3 (0, 0, 0);
+			GameObject.Find ("RSphere").transform.localScale = new Vector3 (0, 0, 0);
+			metaInfo.text = "--- 2 ---\n";
+
+			break;
+
+		case ControllerID.Three:  // neck x1 hand x1
+
+			compensateInfo._compensateRI = false;
+			targetInfo.vtDistance = 0.3f;
+			targetInfo.vtNumber = 6;
+			GameObject.Find ("LSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			GameObject.Find ("RSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			handInfoLeft._isCompensate = false;
+			handInfoRight._isCompensate = false;
+			handInfoLeft._isAugmented = false;
+			handInfoRight._isAugmented = false;
+			metaInfo.text = "--- 3 ---\n";
+
+			break;
+
+		case ControllerID.Four:  // neck x2 hand x1
+
+			compensateInfo._compensateRI = true;
+			targetInfo.vtDistance = 0.3f;
+			targetInfo.vtNumber = 6;
+			GameObject.Find ("LSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			GameObject.Find ("RSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			handInfoLeft._isCompensate = true;
+			handInfoRight._isCompensate = true;
+			handInfoLeft._isAugmented = false;
+			handInfoRight._isAugmented = false;
+			metaInfo.text = "--- 4 ---\n";
+
+			break;
+
+		case ControllerID.Five:  // neck x2 hand x2
+
+			compensateInfo._compensateRI = true;
+			targetInfo.vtDistance = 0.3f;
+			targetInfo.vtNumber = 6;
+			GameObject.Find ("LSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			GameObject.Find ("RSphere").transform.localScale = new Vector3 (0.15f, 0.15f, 0.15f);
+			handInfoLeft._isCompensate = true;
+			handInfoRight._isCompensate = true;
+			handInfoLeft._isAugmented = true;
+			handInfoRight._isAugmented = true;
+			metaInfo.text = "--- 5 ---\n";
+
+			break;
+		}
+
+
+		//metaInfo.text = "";
 
 		if (Input.GetKeyDown (KeyCode.D)) {
 
-			_isInfoOn = !_isInfoOn;
+			_developerMode = !_developerMode;
 
 		}
 
-		if (!_isInfoOn) {
-			metaInfo.text = "OFF";
+		if (!_developerMode) {
+			metaInfo.text += "OFF";
 			return;
 		}
 
@@ -53,7 +139,7 @@ public class metaConsole : MonoBehaviour {
 
 		}
 
-		metaInfo.text = "Tester: " + testerName.ToString () +
+		metaInfo.text += "Tester: " + testerName.ToString () +
 			"\n\n-----Target Info-----" +
 			"\nnumber: " + targetNumber.ToString () +
 			"\ndistance: " + targetDistance.ToString () +
@@ -66,6 +152,8 @@ public class metaConsole : MonoBehaviour {
 		bool _compensatePos = compensateInfo._compensateP;
 		bool _compensateRot = compensateInfo._compensateR;
 		bool _compensateRotInverse = compensateInfo._compensateRI;
+
+
 
 		metaInfo.text += "\npos compensate: " + toText (_compensatePos) +
 			"\nrot inverse compensate: " + toText (_compensateRotInverse); // should be on when vision is agumented
@@ -101,11 +189,6 @@ public class metaConsole : MonoBehaviour {
 			(transLoc(rawPosRight)).ToString () + (transLoc(handPosRight) + transLoc(realOrientation)).ToString() +
 			"\ncompensate: " + toText(_handCompensateRight) +
 			"\naugment: " + toText(_handAugmentRight);
-
-
-
-		// location of hand
-
 
 	}
 
