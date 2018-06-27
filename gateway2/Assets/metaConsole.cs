@@ -19,6 +19,7 @@ public class metaConsole : MonoBehaviour {
 	}
 
 	public ControllerID conditionSwitch;
+	public string userName0 = "whoIsTesting";
 
 	private virtual_exp_3 compensateInfo;
 	private Virtual_record targetInfo;
@@ -32,13 +33,14 @@ public class metaConsole : MonoBehaviour {
 		targetInfo = GameObject.Find ("Reproduce").GetComponent<Virtual_record> ();
 		handInfoLeft = GameObject.Find ("LSphere").GetComponent<virtual_hand> ();
 		handInfoRight = GameObject.Find ("RSphere").GetComponent<virtual_hand> ();
-
-
+	
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		targetInfo.user_name = userName0;
 
 		switch (conditionSwitch) {
 

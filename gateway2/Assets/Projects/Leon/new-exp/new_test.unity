@@ -344,7 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   metaInfo: {fileID: 1299796223}
   _developerMode: 1
-  conditionSwitch: 3
+  conditionSwitch: 4
+  userName0: whoIsTesting
 --- !u!4 &15151123
 Transform:
   m_ObjectHideFlags: 0
@@ -639,7 +640,7 @@ MonoBehaviour:
   _left: 0
   _countDown: 0
   vtNumber: 20
-  user_name: your name
+  user_name: yamen2-5
   inputName: {fileID: 1645070268}
   inputVT: {fileID: 0}
   rtdistance: 0
