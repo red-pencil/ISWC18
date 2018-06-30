@@ -344,8 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   metaInfo: {fileID: 1299796223}
   _developerMode: 1
-  conditionSwitch: 4
-  userName0: whoIsTesting
+  conditionSwitch: 3
+  userName0: yoong4
 --- !u!4 &15151123
 Transform:
   m_ObjectHideFlags: 0
