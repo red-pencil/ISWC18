@@ -1,0 +1,9 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\begin{tabular}{@{}llll@{}}
+\toprule
+Target Position   & T\textless{}EOR & EOR\textless{}T\textless{}COMR & COMR\textless{}T \\ \midrule
+Type of Movements & Eye only        & Eye and head                   & Head only        \\ \bottomrule
+\end{tabular}
+\end{table}
